@@ -16,6 +16,11 @@
 			path = "Kenwood control";
 			sourceTree = "<group>";
 		};
+		944F4A1F3F28484AA2A8202A /* ThirdParty */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				7FCA46B22F3D39560045FEBD /* Kenwood control */,
+				944F4A1F3F28484AA2A8202A /* ThirdParty */,
 				7FCA46B12F3D39560045FEBD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,6 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				7FCA46B22F3D39560045FEBD /* Kenwood control */,
+				944F4A1F3F28484AA2A8202A /* ThirdParty */,
 			);
 			name = "Kenwood control";
 			packageProductDependencies = (
@@ -113,6 +120,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7FCA46BF2F3D39560045FEBE /* Build RNNoise */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build RNNoise";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/bin/sh";
+			shellScript = "bash \"$PROJECT_DIR/scripts/build_rnnoise_macos.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7FCA46AC2F3D39560045FEBD /* Sources */ = {
@@ -183,7 +207,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RNNOISE_C DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -248,18 +272,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Kenwood control/Kenwood control.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+					GENERATE_INFOPLIST_FILE = YES;
+					INFOPLIST_KEY_NSHumanReadableCopyright = "";
+					INFOPLIST_KEY_NSMicrophoneUsageDescription = "Kenwood Control needs access to audio input to process RX audio.";
+					LD_RUNPATH_SEARCH_PATHS = (
+						"$(inherited)",
+						"@executable_path/../Frameworks",
+					);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "personal.Kenwood-control";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -268,8 +294,20 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Kenwood control/BridgingHeader.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ThirdParty/NR",
+					"$(PROJECT_DIR)/ThirdParty/rnnoise/src",
+					"$(PROJECT_DIR)/ThirdParty/wdsp",
+					"/opt/homebrew/include",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"/opt/homebrew/lib/libfftw3.a",
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
@@ -278,18 +316,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Kenwood control/Kenwood control.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
+					GENERATE_INFOPLIST_FILE = YES;
+					INFOPLIST_KEY_NSHumanReadableCopyright = "";
+					INFOPLIST_KEY_NSMicrophoneUsageDescription = "Kenwood Control needs access to audio input to process RX audio.";
+					LD_RUNPATH_SEARCH_PATHS = (
+						"$(inherited)",
+						"@executable_path/../Frameworks",
+					);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "personal.Kenwood-control";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -298,8 +338,20 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Kenwood control/BridgingHeader.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ThirdParty/NR",
+					"$(PROJECT_DIR)/ThirdParty/rnnoise/src",
+					"$(PROJECT_DIR)/ThirdParty/wdsp",
+					"/opt/homebrew/include",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"/opt/homebrew/lib/libfftw3.a",
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};
